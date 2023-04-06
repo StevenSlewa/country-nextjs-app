@@ -6,22 +6,20 @@ import { useEffect, useState } from 'react'
 
 
 
-export default function Home({countries}) {
+export default function Home() {
 
-  // const [countries, setCountries] = useState([])
+  const [countries, setCountries] = useState([])
 
-  // const fetchCountries = async () => {
-  //   const res = await fetch('https://restcountries.com/v3.1/all')
-  //   const data = await res.json()
+  const fetchCountries = async () => {
+    const res = await fetch('https://restcountries.com/v3.1/all')
+    const data = await res.json()
 
+    setCountries(data)
+  }
 
-  //   setCountries(data)
-
-  // }
-
-  // useEffect(() => {
-  //   fetchCountries();
-  // }, []);
+  useEffect(() => {
+    fetchCountries();
+  }, []);
 
 
   return (
@@ -40,15 +38,15 @@ export default function Home({countries}) {
   )
 }
 
-export async function getServerSideProps() {
-  const res = await fetch('https://restcountries.com/v3.1/all')
-  const data = await res.json()
+// export async function getServerSideProps() {
+//   const res = await fetch('https://restcountries.com/v3.1/all')
+//   const data = await res.json()
 
 
 
-  return {
-    props: {
-      countries: data,
-    },
-  };
-}
+//   return {
+//     props: {
+//       countries: data,
+//     },
+//   };
+// }
