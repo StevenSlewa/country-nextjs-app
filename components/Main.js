@@ -6,6 +6,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import InputBase from '@mui/material/InputBase';
+import { useTheme } from "next-themes";
 
 const BootstrapInput = styled(InputBase)(({ theme }) => ({
 
@@ -29,6 +30,7 @@ export default function Main({ countryList }) {
   const [countries, setCountries] = useState(countryList);
   const [regions, setRegions] = useState([]);
   const [selectedRegion, setRegion] = useState('');
+  const { theme } = useTheme();
 
 
   const handleChange = (event) => {
@@ -63,12 +65,11 @@ export default function Main({ countryList }) {
     <section className="body-font dark:text-lighttext text-darktext dark:bg-verydarkblue bg-lightgray">
 
       <section className="pb-8">
-
         <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center md:flex md:justify-between">
           <div className="pt-24 md:pt-36">
             <div className="relative md:w-96 w-full">
               <div className="absolute inset-y-0 left-0 flex items-center px-4 ">
-                <svg className="h-6 w-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
+                <svg className=" z-50 h-6 w-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                 </svg>
               </div>
@@ -88,8 +89,8 @@ export default function Main({ countryList }) {
               <FormControl
                 sx={{
                   width: 180,
-                  '.MuiSvgIcon-root ': {
-                    fill: "dark:text-lighttext text-darktext !important",
+                  '.MuiSvgIcon-root': {
+                    fill: theme === "light" ? "black !important" : "white !important"
                   }
                 }} >
                 <Select
