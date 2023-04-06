@@ -1,12 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { styled } from '@mui/material/styles';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import InputBase from '@mui/material/InputBase';
 import { useTheme } from "next-themes";
+import Loading from "./Loading";
 
 const BootstrapInput = styled(InputBase)(({ theme }) => ({
 
@@ -32,23 +33,22 @@ export default function Main({ countryList }) {
   const [selectedRegion, setRegion] = useState('');
   const { theme } = useTheme();
 
-
   const handleChange = (event) => {
     setRegion(event.target.value);
 
-    setCountries(countryList.filter((country) => {
+    setCountries(countryList?.filter((country) => {
       return country.region == event.target.value;
     }));
   };
 
   const handleSearch = (event) => {
-    setCountries(countryList.filter((country) => {
+    setCountries(countryList?.filter((country) => {
       return country.name.common.toLowerCase().startsWith(event.target.value.toLowerCase());
     }));
   };
 
   useEffect(() => {
-    const uniqueRegions = countryList.reduce((acc, country) => {
+    const uniqueRegions = countryList?.reduce((acc, country) => {
       if (!acc.includes(country.region)) {
         acc.push(country.region);
       }
@@ -64,6 +64,8 @@ export default function Main({ countryList }) {
   return (
     <section className="body-font dark:text-lighttext text-darktext dark:bg-verydarkblue bg-lightgray">
 
+      {
+         countries === undefined  ? <div className="pt-48 pb-16"><Loading /></div> : <>
       <section className="pb-8">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center md:flex md:justify-between">
           <div className="pt-24 md:pt-36">
@@ -142,9 +144,9 @@ export default function Main({ countryList }) {
           <div className="grid md:grid-cols-4 gap-12 px-12 md:px-0">
 
             {
-              countries.map((country,index) => {
+              countries.map((country) => {
                 return (
-                  <Link key={index} href={`/${country.name.common}`}>
+                  <Link  key={country.name.common} href={`/${country.name.common}`}>
                       <div
                         className="rounded-md  dark:text-lighttext text-darktext dark:bg-darkblue bg-verylightgray hover:drop-shadow-lg drop-shadow-sm">
                         <Image
@@ -174,6 +176,9 @@ export default function Main({ countryList }) {
           </div>
         </div>
       </section>
+      </>
+        
+      }
     </section>
   );
 }
