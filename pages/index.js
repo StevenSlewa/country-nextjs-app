@@ -6,22 +6,22 @@ import { useEffect, useState } from 'react'
 
 
 
-export default function Home() {
+export default function Home({countries}) {
 
-  const [countries, setCountries] = useState([])
+  // const [countries, setCountries] = useState([])
 
-  const fetchCountries = async () => {
-    const res = await fetch('https://restcountries.com/v3.1/all')
-    const data = await res.json()
+  // const fetchCountries = async () => {
+  //   const res = await fetch('https://restcountries.com/v3.1/all')
+  //   const data = await res.json()
 
 
-    setCountries(data)
+  //   setCountries(data)
 
-  }
+  // }
 
-  useEffect(() => {
-    fetchCountries();
-  }, []);
+  // useEffect(() => {
+  //   fetchCountries();
+  // }, []);
 
 
   return (
@@ -38,4 +38,17 @@ export default function Home() {
       <Footer />
     </>
   )
+}
+
+export async function getServerSideProps() {
+  const res = await fetch('https://restcountries.com/v3.1/all')
+  const data = await res.json()
+
+
+
+  return {
+    props: {
+      countries: data,
+    },
+  };
 }
