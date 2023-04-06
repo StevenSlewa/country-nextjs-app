@@ -7,16 +7,16 @@ export default function Header() {
 
   return (
     <header className=" dark:text-lighttext text-darktext  w-full dark:bg-darkblue bg-verylightgray drop-shadow-md fixed z-50">
-      <div className="max-w-6xl mx-auto flex flex-wrap md:p-5 p-2 flex-col md:flex-row">
+      <div className="max-w-6xl  mx-auto  md:p-5 p-2">
         <div className="flex flex-row items-center justify-between p-3 md:p-1">
           <Link
             href="/"
-            className="flex sacramento md:text-3xl text-sm  "
+            className="md:text-3xl text-sm  "
           ><b>Where in the world?</b>
           </Link>
          
 
-          <div className="md:scale-100 scale-75 cursor-pointer leading-none   outline-none focus:outline-none content-end ml-auto">
+          <div className="md:scale-100 scale-75  cursor-pointer leading-none">
             <div className="flex flex-col md:flex-row justify-center md:justify-start">
               <div
                 onClick={() => theme == "dark" ? setTheme('light') : setTheme("dark")}
