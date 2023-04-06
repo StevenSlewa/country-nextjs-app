@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react'
 
 export default function Home() {
 
-  const [countries, setCountries] = useState([])
+  const [countries, setCountries] = useState(undefined)
 
   const fetchCountries = async () => {
     const res = await fetch('https://restcountries.com/v3.1/all')

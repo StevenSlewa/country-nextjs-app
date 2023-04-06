@@ -11,10 +11,11 @@ async function fetchCountryDetails(code) {
 }
 
 
-export default function countryDetails({ country, borders }) {
+export default function CountryDetails({ country, borders }) {
+  
+  const [isSvgSupported, setIsSvgSupported] = useState(true);
   const nativeName = country[0].name.nativeName[Object.keys(country[0].name.nativeName)[Object.keys(country[0].name.nativeName).length - 1]].common
 
-  const [isSvgSupported, setIsSvgSupported] = useState(true);
 
   return (
     <>
@@ -27,30 +28,17 @@ export default function countryDetails({ country, borders }) {
           <BackButton />
 
           <div className="md:flex items-center justify-between">
-          {isSvgSupported ? (
             <Image
               className="object-cover h-[14rem]  md:h-[24rem] md:w-[30rem]"
               alt={country[0].flags.alt ?? "Flag"}
-              loader={() => country[0].flags.svg}
-              src={country[0].flags.svg }
+              src={ isSvgSupported? country[0].flags.svg : country[0].flags.png}
               width={350}
               height={250}
               unoptimized
               priority
               onError={(p)=>{setIsSvgSupported(false)}}
             />
-          ):
-          <Image
-              className="object-cover h-[14rem]  md:h-[24rem] md:w-[30rem]"
-              alt={country[0].flags.alt ?? "Flag"}
-              loader={() =>  country[0].flags.png}
-              src={country[0].flags.png}
-              width={350}
-              height={250}
-              unoptimized
-              priority
-            />
-          }
+          
             <div >
               <div className="pt-12 md:pt-0 pb-8 text-2xl"><b>{country[0].name.common}</b></div>
 
